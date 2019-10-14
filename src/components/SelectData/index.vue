@@ -1,5 +1,11 @@
 <template>
-  <el-select :value="value" @change="onChange" filterable allow-create>
+  <el-select
+    :value="value"
+    @change="onChange"
+    :allow-create="canCreate"
+    :filterable="filterable"
+    :remote="remote"
+  >
     <el-option
       v-for="(item, index) in options"
       :key="index"
@@ -16,6 +22,13 @@ export default {
     optionsPromise: {
       type: Function,
       required: true
+    },
+    filter: {
+      type: String
+    },
+    canCreate: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -26,7 +39,9 @@ export default {
 
   data() {
     return {
-      options: []
+      options: [],
+      filterable: !!this.filter,
+      remote: this.filter === "remote"
     };
   },
 

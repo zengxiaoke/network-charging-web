@@ -1,0 +1,53 @@
+<template>
+  <div>
+    <div>
+      <span>room no.</span>
+      <select-data
+        v-model="sel"
+        filter="local"
+        :optionsPromise="getOpts"
+        @change="onChange"
+      ></select-data>
+    </div>
+    <div>
+      <span>building no.</span>
+      <el-input v-model="selVal" :disabled="selVal !== 'new'"></el-input>
+    </div>
+  </div>
+</template>
+
+<script>
+import SelectData from "./components/SelectData/index.vue";
+
+export default {
+  components: {
+    SelectData
+  },
+
+  data() {
+    return {
+      sel: "",
+      selVal: ""
+    };
+  },
+
+  methods: {
+    getOpts() {
+      return Promise.resolve([
+        { label: "one", value: "1" },
+        { label: "two", value: "2" }
+      ]);
+    },
+    onChange(selection) {
+      if (selection && selection.value) {
+        this.selVal = "selected!";
+      } else {
+        this.selVal = "new";
+      }
+    }
+  }
+};
+</script>
+
+<style>
+</style>
